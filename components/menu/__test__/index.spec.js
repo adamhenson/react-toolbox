@@ -21,6 +21,19 @@ describe('IconMenu', () => {
         const wrapper = shallow(<IconMenu active={false} />);
         expect(wrapper.find('Menu').props().active).toBe(false);
       });
+
+      it('sets \'active\' Menu prop correctly after IconButton click', () => {
+        const wrapper = mount(<IconMenu active={false} />);
+        wrapper.find('IconButton').simulate('click');
+        expect(wrapper.find('Menu').props().active).toBe(true);
+      });
+
+      it('sets \'active\' Menu prop correctly when prop is set after IconButton click', () => {
+        const wrapper = mount(<IconMenu active={false} />);
+        wrapper.find('IconButton').simulate('click');
+        wrapper.setProps({ active: false });
+        expect(wrapper.find('Menu').props().active).toBe(false);
+      });
     });
 
     describe('when \'active\' prop is set to true', () => {
@@ -33,6 +46,13 @@ describe('IconMenu', () => {
         const wrapper = mount(<IconMenu active />);
         wrapper.find('IconButton').simulate('click');
         expect(wrapper.find('Menu').props().active).toBe(false);
+      });
+
+      it('sets \'active\' Menu prop correctly when prop is set after IconButton click', () => {
+        const wrapper = mount(<IconMenu active />);
+        wrapper.find('IconButton').simulate('click');
+        wrapper.setProps({ active: true });
+        expect(wrapper.find('Menu').props().active).toBe(true);
       });
     });
   });
